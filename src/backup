@@ -1,0 +1,177 @@
+import React from 'react';
+import './styles.css';
+
+function Navbar({ usuario }) {
+  return (
+    <nav className="navbar navbar-dark bg-dark">
+      <div className="container-fluid">
+        <ul className="navbar-nav flex-row">
+          <li className="nav-item">
+            <a className="nav-link active" aria-current="page" href="#">Inicio</a>
+          </li>
+          <li className="nav-item">
+            <a className="nav-link" href="#">My Rating</a>
+          </li>
+        </ul>
+        <div className="usuario-info">
+          <span>{usuario.nombre}</span>
+          <img src={usuario.imagen} alt="Imagen de Usuario" />
+        </div>
+      </div>
+    </nav>
+  );
+}
+
+function Tarjeta({ graficoUrl, texto, botones, onSelect }) {
+  return (
+    <div className="tarjeta card" onClick={onSelect}>
+      <iframe src={graficoUrl} className="grafico-iframe" title="Gráfico de Grafana"></iframe>
+      <div className="card-body">
+        <p className="card-text">{texto}</p>
+        <div className="botones">
+          {botones.map((boton, index) => (
+            <button 
+              key={index} 
+              className="btn btn-primary me-2"
+              onClick={(e) => {
+                e.stopPropagation();
+                boton.onClick();
+              }}
+            >
+              {boton.texto}
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+
+
+function Mosaico({ tarjetas, onTarjetaSelect }) {
+  return (
+    <div className="mosaico container mt-4">
+      <div className="row">
+        {tarjetas.map((tarjeta, index) => (
+          <div key={index} className="col-12 col-md-6 mb-4">
+            <Tarjeta
+              graficoUrl={tarjeta.imagen}
+              texto={tarjeta.texto}
+              botones={tarjeta.botones}
+              onSelect={() => onTarjetaSelect(index)}
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+
+function Popup({ graficoUrl, onClose }) {
+  return (
+    <div className="popup-overlay" onClick={onClose}>
+      <div className="popup-content">
+        <iframe src={graficoUrl} title="Gráfico de Grafana" className="popup-iframe" />
+      </div>
+    </div>
+  );
+}
+
+
+function Footer() {
+  return (
+    <footer className="footer bg-dark text-white py-3">
+      <div className="container d-flex justify-content-between align-items-center">
+        <div className="social-media d-flex align-items-center">
+          <a href="#" className="d-flex align-items-center me-3 text-white">
+            <img src="ruta/a/facebook-logo.png" alt="Facebook" className="me-2" />
+            Facebook
+          </a>
+          <a href="#" className="d-flex align-items-center me-3 text-white">
+            <img src="ruta/a/twitter-logo.png" alt="Twitter" className="me-2" />
+            Twitter
+          </a>
+          <a href="#" className="d-flex align-items-center text-white">
+            <img src="ruta/a/instagram-logo.png" alt="Instagram" className="me-2" />
+            Instagram
+          </a>
+        </div>
+        <div>
+          &copy; {new Date().getFullYear()} Web en desarrollo :3
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      usuario: { nombre: "Usuario", imagen: "ruta/a/la/imagen-del-usuario.jpg" },
+      tarjetas: [
+        {
+          imagen: "https://karelgomez124.grafana.net/public-dashboards/a5614f05bfa04d428dbf69b86e646552",
+          texto: "Texto de la Tarjeta 1",
+          botones: [
+            { texto: "Botón 1", onClick: () => alert("Botón 1 de la tarjeta 1") },
+            { texto: "Botón 2", onClick: () => alert("Botón 2 de la tarjeta 1") }
+          ]
+        },
+        {
+          imagen: "https://karelgomez124.grafana.net/d-solo/fdmacvcwgeebke/test-dashboard?orgId=1&from=1716199963081&to=1716221563081&panelId=1",
+          texto: "Texto de la Tarjeta 2",
+          botones: [
+            { texto: "Botón 1", onClick: () => alert("Botón 1 de la tarjeta 2") },
+            { texto: "Botón 2", onClick: () => alert("Botón 2 de la tarjeta 2") }
+          ]
+        },
+        {
+          imagen: "https://karelgomez124.grafana.net/d-solo/fdmacvcwgeebke/test-dashboard?orgId=1&from=1716199963081&to=1716221563081&panelId=1",
+          texto: "Texto de la Tarjeta 3",
+          botones: [
+            { texto: "Botón 1", onClick: () => alert("Botón 1 de la tarjeta 3") },
+            { texto: "Botón 2", onClick: () => alert("Botón 2 de la tarjeta 3") }
+          ]
+        },
+        {
+          imagen: "https://karelgomez124.grafana.net/d-solo/fdmacvcwgeebke/test-dashboard?orgId=1&from=1716199963081&to=1716221563081&panelId=1",
+          texto: "Texto de la Tarjeta 4",
+          botones: [
+            { texto: "Botón 1", onClick: () => alert("Botón 1 de la tarjeta 4") },
+            { texto: "Botón 2", onClick: () => alert("Botón 2 de la tarjeta 4") }
+          ]
+        }
+      ],
+      popupImagen: null
+    };
+  }
+  
+
+  handleTarjetaSelect = (index) => {
+    const { tarjetas } = this.state;
+    this.setState({ popupImagen: tarjetas[index].imagen }); 
+  }
+  
+  
+
+  handleClosePopup = () => {
+    this.setState({ popupImagen: null });
+  }
+
+  render() {
+    const { usuario, tarjetas, popupImagen } = this.state;
+    return (
+      <div className="app">
+        <Navbar usuario={usuario} />
+        <Mosaico tarjetas={tarjetas} onTarjetaSelect={this.handleTarjetaSelect} />
+        {popupImagen && <Popup graficoUrl={popupImagen} onClose={this.handleClosePopup} />}
+        <Footer />
+      </div>
+    );
+  }
+}
+
+export default App;

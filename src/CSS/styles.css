@@ -1,0 +1,216 @@
+
+
+/* Establecer que el contenedor principal ocupe toda la pantalla */
+body, html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+/* Estilos para la aplicación */
+.app {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Estilo para la barra de navegación */
+.navbar-nav.flex-row .nav-item {
+  margin-right: 10px;
+}
+
+.navbar {
+  color: white; /* Cambia el color del texto a blanco */
+}
+
+.navbar .usuario-info {
+  display: flex;
+  align-items: center;
+}
+
+.navbar .usuario-info span {
+  margin-right: 10px;
+}
+/* Dropdown menu */
+.navbar .dropdown-menu {
+  position: absolute;
+  will-change: transform;
+  top: 100%; 
+  left: 0;
+  transform: translate3d(0, 0, 0);
+  z-index: 1000;
+}
+
+.custom-dropdown .dropdown-toggle::after {
+  margin-left: 0.5rem;
+}
+
+.custom-dropdown .dropdown-menu {
+  background-color: #343a40;
+  border: none;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.custom-dropdown .dropdown-item {
+  color: #ffffff;
+}
+
+.custom-dropdown .dropdown-item:hover, 
+.custom-dropdown .dropdown-item:focus {
+  background-color: #495057;
+  color: #ffffff;
+}
+
+/* Estilos para el mosaico */
+.mosaico {
+  /* flex: 1; */
+  padding: 20px;
+  overflow-y: auto; /* Ocultar la barra de desplazamiento vertical */
+  overflow-x: hidden; 
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  min-height: auto; /* Ajuste automático de altura */
+}
+
+/* Estilos para las tarjetas */
+.mosaico .tarjeta {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+/* Estilos para la barra de desplazamiento vertical */
+.mosaico {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  overflow-x: hidden; 
+  position: relative; /* Establecer posición relativa */
+}
+
+.mosaico::-webkit-scrollbar {
+  width: 10px; /* Ancho de la barra de desplazamiento */
+  background-color: #f5f5f5; /* Color de fondo */
+  position: absolute; /* Fijar la posición */
+  top: 0; /* Alinear arriba */
+  right: 0; /* Alinear a la derecha */
+}
+
+.mosaico::-webkit-scrollbar-thumb {
+  background-color: #888; /* Color del thumb (manija) */
+  border-radius: 5px; /* Borde redondeado del thumb */
+}
+
+.mosaico::-webkit-scrollbar-thumb:hover {
+  background-color: #555; /* Color del thumb al pasar el mouse */
+}
+
+
+.mosaico .tarjeta:hover {
+  transform: scale(1.05);
+}
+
+.mosaico .tarjeta img {
+  width: 100%;
+  height: auto;
+}
+
+.mosaico .tarjeta .card-body {
+  padding: 10px;
+}
+
+.mosaico .tarjeta .botones {
+  margin-top: 10px;
+}
+
+.mosaico .tarjeta .btn {
+  margin-right: 5px;
+}
+
+/* Estilo para las imágenes dentro de las tarjetas */
+.mosaico .tarjeta img {
+  width: 100%;
+  height: auto;
+  border-bottom: 1px solid #ddd;
+}
+
+.mosaico .tarjeta p {
+  padding: 10px;
+}
+
+/* Estilos para el popup */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.popup-content img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+/* Estilos para el footer */
+.footer {
+  width: 100%;
+  padding: 20px;
+  background-color: #333;
+  color: #fff;
+}
+
+.footer .container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer .social-media {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.footer .social-media a {
+  display: flex;
+  align-items: center;
+  margin-right: 15px;
+  color: white;
+  text-decoration: none;
+}
+
+.footer .social-media img {
+  width: 24px;
+  height: 24px;
+  margin-right: 5px;
+}
+
+.footer .copyright {
+  text-align: center;
+  width: 100%;
+  margin-top: 10px;
+}
+
+@media (min-width: 768px) {
+  .footer .copyright {
+    margin-top: 0;
+    width: auto;
+  }
+}
+
